@@ -37,7 +37,7 @@ public class Jumping2 extends JPanel implements ActionListener, KeyListener {
 	private boolean isOnPlatform,cambia;
 
 
-	public Jumping2(String percorso) {
+	public Jumping2(String percorso_skin,String percorso_livello,String percorso_ostacolo) {
 
 		
 		x = 50;
@@ -63,13 +63,12 @@ public class Jumping2 extends JPanel implements ActionListener, KeyListener {
 
 
 
-		bgImage = new ImageIcon("SfondoVolpe.jpg").getImage();
+		this.bgImage = new ImageIcon(percorso_livello).getImage();
 		bgImage2= new ImageIcon("C:\\Users\\Salvatore\\eclipse-workspace\\Gioco\\Citta (1).jpg").getImage();
 		
-		this.foxImage = new ImageIcon(percorso).getImage();
-		obstacleImage = new ImageIcon("tronco.png").getImage();
-		obstacleImage4 = new ImageIcon("tronco.png").getImage();
-		obstacleImage2 = new ImageIcon("fragolaLife.png").getImage();
+		this.foxImage = new ImageIcon(percorso_skin).getImage();
+		obstacleImage = new ImageIcon(percorso_ostacolo).getImage();
+		obstacleImage2 = new ImageIcon("C:\\Users\\Salvatore\\eclipse-workspace\\Gioco\\fragolaLife.png").getImage();
 		obstacleImage3 = new ImageIcon("steroids.png").getImage();
 		obstacleCity= new ImageIcon("panca (3).png").getImage();
 		platformImage = new ImageIcon("platform.png").getImage();
@@ -77,7 +76,6 @@ public class Jumping2 extends JPanel implements ActionListener, KeyListener {
 		platforms = new Platform[2];
 		platforms[0] = new Platform(getWidth() + (int)(Math.random() * 400), (int)(Math.random() * 200) + 1000, 270, 34);
 		platforms[1] = new Platform(getWidth() + (int)(Math.random() * 400), (int)(Math.random() * 200) + 1000, 270, 34);
-		//platforms[2] = new Platform(getWidth() + (int)(Math.random() * 400), (int)(Math.random() * 200) + 1000, 270, 34);
 		isOnPlatform = false;
 
 
@@ -121,14 +119,12 @@ public class Jumping2 extends JPanel implements ActionListener, KeyListener {
 			g.drawImage(platformImage, platform.x, platform.y, platform.width, platform.height, null);
 		}
 
-		if(!obstaclePassed2) {
+	
+
+		
+		if(!obstaclePassed2) { 
 			g.drawImage(obstacleImage2, obstacleX2, obstacleY2, null);
 		}
-
-		if(!obstaclePassed3) {
-			g.drawImage(obstacleImage3, obstacleX3, obstacleY3, null);
-		}
-
 
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 24));
@@ -141,7 +137,7 @@ public class Jumping2 extends JPanel implements ActionListener, KeyListener {
 		int healthWidth = (int) ((barWidth /100) * ((int) life / 1));
 
 
-		// Barra DElla vita
+		// Barra Della vita
 		g.setColor(Color.BLACK);
 		g.drawRect(barX, barY, barWidth, barHeight);
 		g.setColor(Color.GREEN);
@@ -190,6 +186,17 @@ public class Jumping2 extends JPanel implements ActionListener, KeyListener {
 		}
 
 
+		
+		if (obstacleX2 < -obstacleImage2.getWidth(null)) {
+			obstacleX2 = 2100;
+			obstaclePassed2 = false;
+		}
+
+		if (obstacleY2 < -obstacleImage2.getHeight(null)) {
+			obstacleY2 = 550;
+			obstaclePassed2 = false;
+		}
+		
 		if (bgX <= -bgImage.getWidth(null)) {
 			bgX = 0;
 		}

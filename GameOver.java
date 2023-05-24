@@ -193,6 +193,8 @@ public class GameOver extends JFrame {
 		riprova.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String immagine_utilizzata="";
+				String immagine_sfondo="";
+				String immagine_ostacolo="";
 
 				try {
 					Properties props = new Properties();
@@ -216,6 +218,8 @@ public class GameOver extends JFrame {
 					
 					while(rs.next()) {
 					 immagine_utilizzata = rs.getString("ultimo_percorso");
+					 immagine_ostacolo = rs.getString("ultimo_ostacolo");
+					 immagine_sfondo = rs.getString("ultimo_livello");
 						
 					}
 					
@@ -226,7 +230,7 @@ public class GameOver extends JFrame {
 					e1.printStackTrace();
 				}
 
-				Jumping2 game = new Jumping2(immagine_utilizzata );
+				Jumping2 game = new Jumping2(immagine_utilizzata,immagine_sfondo,immagine_ostacolo);
 				JFrame frame = new JFrame("Jumping Fox Game");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setResizable(false);

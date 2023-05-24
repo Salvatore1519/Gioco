@@ -204,12 +204,12 @@ public class MainScreen extends JFrame{
 			}
 		};
 
-		ImageIcon icona = new ImageIcon("SfondoVolpe.jpg");
+		ImageIcon icona = new ImageIcon("C:\\Users\\Salvatore\\eclipse-workspace\\Gioco\\SfondoVolpe.jpg");
 		setIconImage(icona.getImage());
 		setTitle("FoxGame");
 		setSize(1180, 820);
 
-		this.imageicon = new ImageIcon("SfondoVolpe.jpg");
+		this.imageicon = new ImageIcon("C:\\Users\\Salvatore\\eclipse-workspace\\Gioco\\SfondoVolpe.jpg");
 		this.x = 0;
 		this.y = 0;
 
@@ -263,7 +263,7 @@ public class MainScreen extends JFrame{
 		newGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new SelectImage();
+				new SelectLevel();
 			}
 		}
 				);

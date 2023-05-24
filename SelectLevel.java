@@ -1,4 +1,5 @@
 package it.gioco;
+ 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class SelectImage extends JFrame {
+public class SelectLevel extends JFrame {
 
 private JPanel panel ;
 
@@ -31,30 +32,27 @@ private Timer timer;
 
 private JLabel titleLabel;
 private ImageIcon imageicon;
-String percorso_selezionato;
+
 private int x,y;
+private String percorso_sfondo,percorso_ostacolo;
 
-private String percorsoSelezionato,percorsoOstacolo;
 
-public void setPercorsoSelezionato(String percorso) {
-    this.percorsoSelezionato = percorso;
+
+
+public String getPercorso() {
+	return percorso_sfondo;
 }
 
-public void setPercorsoSelezionatoOstacolo(String percorso_ostacolo) {
-    this.percorsoOstacolo = percorso_ostacolo;
+public String getPercorso_Ostacolo() {
+	return percorso_ostacolo;
 }
 
-public String getPercorsoSelezionato() {
-	return percorsoSelezionato;
-}
 
-public String getPercorsoOstacolo() {
-	return percorsoOstacolo;
-}
-public SelectImage() {
 
+public SelectLevel() {
 	
-	titleLabel = new JLabel("Seleziona La tua Renna");
+	
+	titleLabel = new JLabel("Seleziona Il Livello");
 	titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	titleLabel.setVerticalAlignment(SwingConstants.CENTER);
 	Font font1	= new Font("Comic Sans MS", Font.PLAIN, 50);
@@ -126,70 +124,58 @@ public SelectImage() {
 	    	
 	        conn = DriverManager.getConnection(url,username,password);
 	        stmt=conn.createStatement();
-	        rs=stmt.executeQuery("select * from immagine");
+	        rs=stmt.executeQuery("select * from livelli");
 	       
 	
-            ArrayList<String> percorsiImmagini = new ArrayList<>();
+           
 
             while (rs.next()) {
-                String percorso = rs.getString("percorso");
-                percorsiImmagini.add(percorso);
-                String nome_renna= rs.getString("nome_renna");
+            	 byte[] bytes = rs.getBytes("immagine_livelli");
+               String percorso_sfondo = rs.getString("percorso_livello");
+                String percorso_ostacolo = rs.getString("percorso_ostacoli");
+             
+                String nome_renna= rs.getString("descrizione_livello");
 
-            
+                Image image = Toolkit.getDefaultToolkit().createImage(bytes);
 
-          
-                ImageIcon imageIcon = new ImageIcon(percorso);
-                JButton buttonImmagine1 = new JButton(imageIcon);
+                // Ridimensiona l'immagine
+                int desiredWidth = 200; // Larghezza desiderata
+                int desiredHeight = 200; // Altezza desiderata
+                Image resizedImage = image.getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
+
+                // Crea l'oggetto ImageIcon utilizzando l'immagine ridimensionata
+                ImageIcon icon = new ImageIcon(resizedImage);
+
+                JButton buttonImmagine1 = new JButton();
+                
+                buttonImmagine1.setIcon(icon);
                 buttonImmagine1.setOpaque(false);
                 buttonImmagine1.setContentAreaFilled(false);
                 buttonImmagine1.setBorderPainted(false);
                 buttonImmagine1.setFocusPainted(false);
                 buttonImmagine1.setForeground(new Color(0, 0, 0, 0));
                 buttonImmagine1.setVisible(true);
+                
                 panel.add(buttonImmagine1);
 
                 buttonImmagine1.addActionListener(e -> {
+                    dispose();
                  
+                 SelectImage selectImage = new SelectImage();
+                 
+                 selectImage.setPercorsoSelezionato(percorso_sfondo);
+                 selectImage.setPercorsoSelezionatoOstacolo(percorso_ostacolo);
                     JOptionPane.showMessageDialog(null, "Ottima Scelta!!: "+ "Hai Selezionato: " + nome_renna);
                   
-                    dispose();
-            
+                
                     
-                    Jumping2 game = new Jumping2(percorso,this.getPercorsoSelezionato(),this.getPercorsoOstacolo());
-                    String utltimo_livello=this.getPercorsoSelezionato();
-                    String ultimo_ostacolo=this.getPercorsoOstacolo();
-                    JFrame frame = new JFrame("Jumping Fox Game");
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setResizable(false);
-                    frame.setContentPane(game);
-                    frame.pack();
-                    frame.setLocationRelativeTo(null);
-                    frame.setVisible(true);
-                    
-                    try {
-                    	String sql="insert into utilizzo(ultimo_percorso,ultimo_livello,ultimo_ostacolo) values(?,?,?)";
-                    	
-                    	// Inserimento Percorso del ultima immagine utilizzata dal giocatore 
-                    Connection conn_uti = DriverManager.getConnection(url,username,password);
-                    PreparedStatement  stmt_uti = conn_uti.prepareStatement(sql);
-                    stmt_uti.setString(1, percorso);
-                    stmt_uti.setString(2, utltimo_livello);
-                    stmt_uti.setString(3,ultimo_ostacolo);
-                    stmt_uti.execute();
-                    
-                    }catch(SQLException ex1) {
-                    	ex1.printStackTrace();
-                    }
-                    
-                });
+                  
             
             
           
             
-
+                });
             }
-
 
 	        
 
@@ -245,5 +231,6 @@ public ImageIcon getImage(ImageIcon icon) {
 	return icon;
 }
 
+ 
 
 }

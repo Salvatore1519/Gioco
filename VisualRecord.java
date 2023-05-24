@@ -180,7 +180,7 @@ public class VisualRecord extends JFrame {
 			try {
 
 				Properties props = new Properties();
-				FileInputStream in = new FileInputStream("database.propreties");
+				FileInputStream in = new FileInputStream("C:\\Users\\Salvatore\\eclipse-workspace\\Gioco\\database.propreties");
 				props.load(in);
 				in.close();
 
