@@ -39,13 +39,6 @@ private String percorso_sfondo,percorso_ostacolo;
 
 
 
-public String getPercorso() {
-	return percorso_sfondo;
-}
-
-public String getPercorso_Ostacolo() {
-	return percorso_ostacolo;
-}
 
 
 
@@ -60,6 +53,7 @@ public SelectLevel() {
 	titleLabel.setForeground(Color.RED);
 	
 	
+
 	panel = new JPanel(new GridLayout(7,1)) {
 
 		@Override
@@ -78,6 +72,8 @@ public SelectLevel() {
 		}
 	};
 
+	
+	// Immagine di sfondo
 	ImageIcon icona = new ImageIcon("SfondoVolpe.jpg");
 	setIconImage(icona.getImage());
 	setTitle("FoxGame");
@@ -87,6 +83,8 @@ public SelectLevel() {
 	this.x = 0;
 	this.y = 0;
 
+	
+  // Temporizzazione per lo scorrimento dello sfondo 
 	timer = new Timer(10, e -> {
 		x++;
 		if (x > imageicon.getIconWidth()) {
@@ -105,7 +103,7 @@ public SelectLevel() {
 	    Statement stmt = null;
 	    ResultSet rs=null;
 	 
-	    
+	    // Propreties Per la connesione al database
 	    try {
 	    	Properties props = new Properties();
 			FileInputStream in = new FileInputStream("database.propreties");
@@ -124,11 +122,13 @@ public SelectLevel() {
 	    	
 	        conn = DriverManager.getConnection(url,username,password);
 	        stmt=conn.createStatement();
+	        
+	       
 	        rs=stmt.executeQuery("select * from livelli");
 	       
 	
            
-
+	        // Stampa in modo dinamico degli elementi presenti nel database come bottoni per la selezione dei livelli
             while (rs.next()) {
             	 byte[] bytes = rs.getBytes("immagine_livelli");
                String percorso_sfondo = rs.getString("percorso_livello");
@@ -227,9 +227,7 @@ public SelectLevel() {
 	
 
 
-public ImageIcon getImage(ImageIcon icon) {
-	return icon;
-}
+
 
  
 

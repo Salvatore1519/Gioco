@@ -58,6 +58,8 @@ public class MainScreen extends JFrame{
 
 		visualScoreButton.setVisible(true);
 
+		
+		
 		visualScoreButton.addMouseListener(new MouseListener() {
 			public void mouseEntered(MouseEvent e) {
 				visualScoreButton.setForeground(Color.RED);
@@ -204,6 +206,7 @@ public class MainScreen extends JFrame{
 			}
 		};
 
+		// Gestione Scorrimento Sfondo
 		ImageIcon icona = new ImageIcon("C:\\Users\\Salvatore\\eclipse-workspace\\Gioco\\SfondoVolpe.jpg");
 		setIconImage(icona.getImage());
 		setTitle("FoxGame");
@@ -220,7 +223,7 @@ public class MainScreen extends JFrame{
 			}
 			panel.repaint();
 		});
-
+		
 		timer.start();
 
 		panel.add(titleLabel);
@@ -247,7 +250,7 @@ public class MainScreen extends JFrame{
 		}
 				);
 
-
+		// Visualizza Record
 		visualScoreButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -259,7 +262,7 @@ public class MainScreen extends JFrame{
 		});
 
 	
-
+		// Nuova Partita
 		newGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();

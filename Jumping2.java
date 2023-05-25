@@ -36,7 +36,7 @@ public class Jumping2 extends JPanel implements ActionListener, KeyListener {
 	private Obstacle3 obstacle3;
 	private boolean isOnPlatform,cambia;
 
-
+	
 	public Jumping2(String percorso_skin,String percorso_livello,String percorso_ostacolo) {
 
 		
@@ -91,6 +91,7 @@ public class Jumping2 extends JPanel implements ActionListener, KeyListener {
 	}
 
 
+		// Metodo Per Disegnare Le Immagini
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
@@ -121,7 +122,7 @@ public class Jumping2 extends JPanel implements ActionListener, KeyListener {
 
 	
 
-		
+		// Disegna Il power UP
 		if(!obstaclePassed2) { 
 			g.drawImage(obstacleImage2, obstacleX2, obstacleY2, null);
 		}
@@ -160,7 +161,9 @@ public class Jumping2 extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-
+	
+	
+	// Gestione Colisioni e Scorrimento Sfondo
 	public void actionPerformed(ActionEvent e) {
 
 
